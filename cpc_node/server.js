@@ -31,7 +31,8 @@ app.post("/cpcupdate", (req, res) => {
   var mall_id = req.body.mall_id;
   var dates = req.body.dates;
   var types = req.body.type;
-  for (let j = 0; i < rows.length; j++) {
+  var lengths = req.body.lengths
+  for (let j = 0; j < lengths; j++) {
     const csvData = fs.readFileSync('./files/'+mall_id+'_'+dates+'_'+j+".csv", "utf8");
 
     // split the CSV data into rows

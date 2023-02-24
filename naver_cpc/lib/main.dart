@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
 import 'src/barchart.dart';
+import 'src/getx/controller.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +17,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -36,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    // final controller = Get.put(ReactiveController());
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -53,8 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      // This trailing comma makes auto-formatting nicer for build methods.
     );
+    // This trailing comma makes auto-formatting nicer for build methods.
   }
 }
 
@@ -91,9 +95,9 @@ Future<void> sqlupdate() async {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: <String, String>{
-      'lengths': '5',
+      'lengths': '1',
       'mall_id': 'mosadi1',
-      'dates': '230221',
+      'dates': '230222',
       'type': 'p'
     },
   );

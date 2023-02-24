@@ -21,10 +21,10 @@ class ChartAppState extends State<ChartApp> {
   }
 
   List<ChartData> data = [
-    ChartData('Germany', 128, 129, 101),
-    ChartData('Russia', 123, 92, 93),
-    ChartData('Norway', 107, 106, 90),
-    ChartData('USA', 87, 95, 71),
+    ChartData('Germany', 128, 129, 101, 1),
+    ChartData('Russia', 123, 92, 93, 1),
+    ChartData('Norway', 107, 106, 90, 1),
+    ChartData('USA', 87, 95, 71, 1),
   ];
 
   @override
@@ -51,9 +51,10 @@ class ChartAppState extends State<ChartApp> {
 }
 
 class ChartData {
-  ChartData(this.x, this.y, this.y1, this.y2);
+  ChartData(this.x, this.y, this.y1, this.y2, this.y3);
   final String x;
   final double? y;
   final double? y1;
   final double? y2;
+  final double? y3;
 }
