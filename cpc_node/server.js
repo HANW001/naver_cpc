@@ -31,27 +31,28 @@ app.post("/cpcupdate", (req, res) => {
   var mall_id = req.body.mall_id;
   var dates = req.body.dates;
   var types = req.body.type;
-  const csvData = fs.readFileSync('./files/'+mall_id+'_'+dates+".csv", "utf8");
+  for (let j = 0; i < rows.length; j++) {
+    const csvData = fs.readFileSync('./files/'+mall_id+'_'+dates+'_'+j+".csv", "utf8");
 
-  // split the CSV data into rows
-  const rows = csvData.split("\n");
+    // split the CSV data into rows
+    const rows = csvData.split("\n");
 
-  // iterate over the rows and insert them into the database
-  for (let i = 1; i < rows.length-1; i++) {
-    const row = rows[i].split(",");
-    const values = [mall_id,row[0], row[1], row[2], row[3], row[4], row[5] ,dates,types]// replace with your own column names
-    connection.query(
-      "INSERT IGNORE INTO cpc_table (mall_id, prd_id, prd_name, exposure, click_count, click_per, click_per_cash, dates, type) VALUES (?, ?, ?,?, ?, ?,?, ?, ?)",
-      values,
-      (err, results) => {
-        if (err) {
-          console.error(err);
-        } else {
-          console.log(`Inserted row ${i + 1} with ID ${results.insertId}`);
+    // iterate over the rows and insert them into the database
+    for (let i = 1; i < rows.length-1; i++) {
+      const row = rows[i].split(",");
+      const values = [mall_id,row[0], row[1], row[2], row[3], row[4], row[5] ,dates,types]// replace with your own column names
+      connection.query(
+        "INSERT IGNORE INTO cpc_table (mall_id, prd_id, prd_name, exposure, click_count, click_per, click_per_cash, dates, type) VALUES (?, ?, ?,?, ?, ?,?, ?, ?)",
+        values,
+        (err, results) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log(`Inserted row ${i + 1} with ID ${results.insertId}`);
+          }
         }
-      }
-    );
-  }
+      );
+    }}
   res.send('row')
 });
 

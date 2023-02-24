@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
+import 'src/barchart.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -38,14 +40,17 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextButton(onPressed: httpget, child: Text('sql httpget')),
-            TextButton(onPressed: sqlread, child: Text('sql read')),
-            TextButton(onPressed: sqlupdate, child: Text('sql sqlupdate')),
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextButton(onPressed: httpget, child: Text('sql httpget')),
+              TextButton(onPressed: sqlread, child: Text('sql read')),
+              TextButton(onPressed: sqlupdate, child: Text('sql sqlupdate')),
+              ChartApp(),
+            ],
+          ),
         ),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
@@ -68,8 +73,10 @@ Future<void> sqlread() async {
   var url = Uri.http('127.0.0.1:3000', '/cpc');
   var response = await http.get(url);
   if (response.statusCode == 200) {
-    print(response.body);
-    print('Number of books about http:.');
+    var jsonResponse = convert.jsonDecode(response.body) as List<dynamic>;
+    print(jsonResponse);
+    // var itemCount = jsonResponse['mall_id'];
+    // print('Number of books about http: $itemCount.');
   } else {
     print('Request failed with status: ${response.statusCode}.');
   }
@@ -84,6 +91,7 @@ Future<void> sqlupdate() async {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: <String, String>{
+      'lengths': '5',
       'mall_id': 'mosadi1',
       'dates': '230221',
       'type': 'p'
